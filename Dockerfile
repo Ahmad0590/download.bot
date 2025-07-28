@@ -6,4 +6,4 @@ COPY . .
 
 RUN apt-get update && apt-get install -y unzip
 
-CMD ["php", "download1.php"]
+CMD ["php", "download.php"]
