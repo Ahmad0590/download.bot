@@ -1,43 +1,23 @@
 <?php
-$TOKEN = '7666755138:AAFwjsfin3t8azTUedmv6Fz-48Y3ks_xMPc';
-define("API_KEY", $TOKEN); 
-function bot($method, $datas = [])
-{
-  $url = "https://api.telegram.org/bot" . API_KEY . "/" . $method;
-  $ch = curl_init();
-  curl_setopt($ch, CURLOPT_URL, $url);
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-  curl_setopt($ch, CURLOPT_HEADER, true);
-  curl_setopt($ch, CURLOPT_POSTFIELDS, $datas);
-  $res = curl_exec($ch);
-  if (curl_error($ch)) {
-    var_dump(curl_error($ch));
-  } else {
-    return json_decode($res);
-  }
+ob_start();
+error_reporting(0);
+define("API_KEY", '7666755138:AAFwjsfin3t8azTUedmv6Fz-48Y3ks_xMPc');
+$botname = bot('getme', ['bot'])->result->username;
+
+function bot($method, $datas = []) {
+    $url = "https://api.telegram.org/bot" . API_KEY . "/$method";
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $datas); 
+    $res = curl_exec($ch);
+    if (curl_error($ch)) {
+        var_dump(curl_error($ch));
+    } else {
+        return json_decode($res);
+    }
 }
-
-$admin = '8107751492'; //ايديك تلكرام 
-
-
-//𓏳𓏳𓏳⦗ لا تلعب بشي هنا ⦘𓏳𓏳𓏳
-$telegram_ip_ranges = [
-['lower' => '149.154.160.0', 'upper' => '149.154.175.255'],
-['lower' => '91.108.4.0',    'upper' => '91.108.7.255'],
-];
-$ip_dec = (float) sprintf("%u", ip2long($_SERVER['REMOTE_ADDR']));
-$ok=false;
-foreach ($telegram_ip_ranges as $telegram_ip_range) if (!$ok) {
-if(!$ok){
-$lower_dec = (float) sprintf("%u", ip2long($telegram_ip_range['lower']));
-$upper_dec = (float) sprintf("%u", ip2long($telegram_ip_range['upper']));
-if($ip_dec >= $lower_dec and $ip_dec <= $upper_dec){
-$ok=true;
-}}}
-if(!$ok){
-exit(header(""));
-}
-//𓏳𓏳𓏳⦗ لا تلعب بشي هنا ⦘𓏳𓏳𓏳
+$admin = 8107751492 ; // ايديك
 $update = json_decode(file_get_contents('php://input'));
 $message= $update->message;
 $text = $message->text;
@@ -54,7 +34,12 @@ $chat_id2 = $update->callback_query->message->chat->id;
 $message_id = $update->callback_query->message->message_id;
 $data = $update->callback_query->data;
 $from_id = $message->from->id;
-
+//\\
+mkdir("data/$chat_id");
+$log = file_get_contents("data/$chat_id/$chat_id.txt");
+$EG = file_get_contents("data/$chat_id/eg".$chat_id.".txt");
+$c20 = file_get_contents("data/$chat_id/20".$chat_id.".txt");
+//\\
 $msg = file_get_contents("msg.php");
 $forward = file_get_contents("forward.php");
 $midea = file_get_contents("midea.php");
@@ -63,23 +48,20 @@ $photoi = file_get_contents("photoi.php");
 $upq = file_get_contents("up.php");
 $skor = file_get_contents("skor.php");
 
-
 mkdir("data");
 
 $channel = file_get_contents("link.php");
 $link = file_get_contents("link2.php");
-$ch = "$channel"; #لا تلعب هنا
+$ch = "$channel"; 
 $join = file_get_contents("https://api.telegram.org/bot".API_KEY."/getChatMember?chat_id=$ch&user_id=".$from_id);
 if($message && (strpos($join,'"status":"left"') or strpos($join,'"Bad Request: USER_ID_INVALID"') or strpos($join,'"status":"kicked"'))!== false){
 bot('sendMessage', [
 'chat_id'=>$chat_id,
  'text'=>"
-🚸| عذرا عزيزي
-🔰| عليك الاشتراك بقناة البوت لتتمكن من استخدامه
-
-- [اضغط هنا للشتراك في القناة]($link)
-
-‼️| اشترك ثم ارسل /start",
+»  عليك الاشتراك في قناة تحديثات البوت اولا 📨
+»  ليمكنك استخدام البوت  🔊
+»  اشترك ثم ارسل { /start }
+»  [اضغط هنا للشتراك في القناة]($link)",
 'parse_mode'=>"MarkDown",
 'disable_web_page_preview'=>true,
 ]);return false;}
@@ -90,12 +72,10 @@ if($message && (strpos($join,'"status":"left"') or strpos($join,'"Bad Request: U
 bot('sendMessage', [
 'chat_id'=>$chat_id,
  'text'=>"
-🚸| عذرا عزيزي
-🔰| عليك الاشتراك بقناة البوت لتتمكن من استخدامه
-
-- $uuser
-
-‼️| اشترك ثم ارسل /start",
+»  عليك الاشتراك في قناة تحديثات البوت اولا 📨
+»  ليمكنك استخدام البوت  🔊
+»  اشترك ثم ارسل { /start }
+»  $uuser",
 ]);return false;}
 
 $users = explode("\n",file_get_contents("abbas.json"));
@@ -123,14 +103,13 @@ $all = count($users)-1;
 
 $adminss = explode("\n",file_get_contents("ad.json"));
 
-$k088 = file_get_contents("data/k088.txt");
+$a3bs9 = file_get_contents("data/a3bs9.txt");
 $q1 = file_get_contents("data/q1.txt");
 $q2 = file_get_contents("q2.txt");
 $q3 = file_get_contents("data/q3.txt");
 $q4 = file_get_contents("q4.txt");
 $q5 = file_get_contents("data/q5.txt");
 $aralikan = file_get_contents("q6.txt");
-
 
 if($message){
 if(!in_array($admin,$adminss)){
@@ -185,73 +164,41 @@ if($text =="/start" and !in_array($from_id,$users)){
 bot('sendmessage',[
 'chat_id'=>$admin,
 'text'=>"
-٭ دخل شخص جديد الى البوت الخاص بك 
-ٴ𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳
-• اسمه : $name ⦘
-• يوزره : ⦗ $user ⦘
-• ايديه : ⦗ $id ⦘
-ٴ𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳
-• عدد الاعضاء الكلي : ⦗ $all ⦘
+٭ تم دخول شخص جديد الى البوت الخاص بك 👾
+. — — — — — — — — — — .
+• معلومات العضو الجديد .
+. — — — — — — — — — — .
+• الاسم : $name
+• المعرف : $user
+• الايدي : $id
+. — — — — — — — — — — .
+• عدد الاعضاء الكلي : $all
 ",
 ]);
 }
 
 $bot = file_get_contents("bot.txt");
 
-$ck1 = "@izeoe"; # معرف لقناة وي @
-$ch2 = file_get_contents("https://api.telegram.org/bot".API_KEY."/getChatMember?chat_id=".$ck1."&user_id=".$from_id);
-$getch2 = json_decode(file_get_contents("http://api.telegram.org/bot".API_KEY."/getChat?chat_id=".$ck1))->result;
-$Namech2 = $getch2->title;
-$getch2li = str_replace("@","",$ck1);
-if($message && (strpos($ch2,'"status":"left"') or strpos($ch2,'"Bad Request: USER_ID_INVALID"') or strpos($ch2,'"status":"kicked"'))!== false){
-bot('sendMessage', [
-'chat_id'=>$chat_id,
-'text'=>'☆︙عذراً عزيزي 
-☆︙يجب عليك الاشتراك في قناة المطور أولا
-☆︙اشترك ثم ارسل ⦗ /start  ⦘
- — — — — — — — — —
-'.$ck1,
-'reply_markup'=>json_encode([
-'inline_keyboard'=>[
-[['text'=>$Namech2,'url'=>"https://t.me/$getch2li"]],
-]])
-]);return false;}
-
-$ck1 = "@Files_php3"; # معرف لقناة وي @
-$ch2 = file_get_contents("https://api.telegram.org/bot".API_KEY."/getChatMember?chat_id=".$ck1."&user_id=".$from_id);
-$getch2 = json_decode(file_get_contents("http://api.telegram.org/bot".API_KEY."/getChat?chat_id=".$ck1))->result;
-$Namech2 = $getch2->title;
-$getch2li = str_replace("@","",$ck1);
-if($message && (strpos($ch2,'"status":"left"') or strpos($ch2,'"Bad Request: USER_ID_INVALID"') or strpos($ch2,'"status":"kicked"'))!== false){
-bot('sendMessage', [
-'chat_id'=>$chat_id,
-'text'=>'☆︙عذراً عزيزي 
-☆︙يجب عليك الاشتراك في قناة المطور أولا
-☆︙اشترك ثم ارسل ⦗ /start  ⦘
- — — — — — — — — —
-'.$ck1,
-'reply_markup'=>json_encode([
-'inline_keyboard'=>[
-[['text'=>$Namech2,'url'=>"https://t.me/$getch2li"]],
-]])
-]);return false;}
 if($text =="/start" and in_array($from_id,$adminss)){
 bot('sendmessage',[
 'chat_id'=>$chat_id,
-'text'=>"*- اهلا بك عزيزي المطور 
-- اليك قائمه الاوامر الخاصه بك*",
+'text'=>"*-•
+~ اهلا بك في لوحه الأدمن الخاصه بالبوت 🤖
+
+~ يمكنك التحكم في جميع اوامر البوت من هنا 
+------------------------------------  
+*",
 'parse_mode'=>"Markdown",
 "reply_markup"=>json_encode([
 "inline_keyboard"=>[
-[["text"=>" قفل البوت ","callback_data"=>"abcd"],["text"=>" فتح البوت ","callback_data"=>"abcde"]],
-[["text"=>" اعضاء البوت ","callback_data"=>"userd"]],
-[["text"=>" تفعيل التنبيه ","callback_data"=>"ont"],["text"=>" تعطيل التنبيه ","callback_data"=>"oft"]],
-[["text"=>" قسم الاذاعةه ","callback_data"=>"for"]],
-[['text' => " قائمه الاشتراك ", 'callback_data' => "channel"],['text' => " الاشتراك ($skor) ", "callback_data" => "off"]],
-[['text' => " نسخة احتياطيه ", 'callback_data' => "nnn"],['text' => " رفع نسخه ", 'callback_data' => "up"]],
-[['text' => " الاحصائيات ", 'callback_data' => "pannel"],['text' => " قسم الادمن ", 'callback_data' => "lIllabbas"]],
+[["text"=>"- قفل البوت ❌.","callback_data"=>"abcd"],["text"=>"- فتح البوت ✅.","callback_data"=>"abcde"]],
+[["text"=>"- اعضاء البوت 👥.","callback_data"=>"userd"]],
+[["text"=>"- تفعيل التنبيه 🔔.","callback_data"=>"ont"],["text"=>"- تعطيل التنبيه 🔕.","callback_data"=>"oft"]],
+[["text"=>"- قسم الاذاعةه 📢.","callback_data"=>"for"]],
+[['text' => "- قائمةه الاشتراك 🗣.", 'callback_data' => "channel"],['text' => "- الاشتراك ($skor) .", "callback_data" => "off"]],
+[['text' => "- الاحصائيات 📊.", 'callback_data' => "pannel"],['text' => "- قسم المشرفين 👮‍♂️.", 'callback_data' => "lIllabbas"]],
 ]])
-]);   
+]); 
 }
 
 //
@@ -259,13 +206,18 @@ if($data =="lIllabbas"){
 bot('EditMessageText',[
 'chat_id'=>$chat_id2,
 'message_id'=>$message_id,
-'text'=>"اهلا", 
+'text'=>"*
+ اهلا بك في قسم مشرفين 👮‍♂️
+ يمكنك من خلال هذا القسم
+ ☆☆☆☆☆☆☆☆☆☆☆☆☆
+ رفع مشرف - تنزيل مشرف - حدف جميع المشرفين
+*", 
 'parse_mode'=>"Markdown",
 "reply_markup"=>json_encode([
 "inline_keyboard"=>[
-[["text"=>"• رفع ادمن •","callback_data"=>"adl"]],
-[["text"=>"• اخر الادمن •","callback_data"=>"addmin"]],
-[["text"=>"• حذف الادمنيه •","callback_data"=>"delateaddmin"]],
+[["text"=>"- رفع مشرف 👮‍♂️.","callback_data"=>"adl"]],
+[["text"=>"- اخر المشرفين👮‍♂️.","callback_data"=>"addmin"]],
+[["text"=>"- حدف جميع المشرفين👮‍♂️.","callback_data"=>"delateaddmin"]],
 ]])
 ]);   
 }
@@ -275,38 +227,38 @@ bot('EditMessageText',[
 'chat_id'=>$chat_id2,
 'message_id'=>$message_id,
 'text'=>"
-قم بارسال ايدي العضو
+قم بارسال ايدي العضو 🆔️
  ",
 ]); 
-file_put_contents("data/k088.txt","k088");
+file_put_contents("data/a3bs9.txt","a3bs9");
 }
-if($text !="/start" and $k088 == "k088" and !in_array($text,$adminss)){
-file_put_contents("data/k088.txt","none");
+if($text !="/start" and $a3bs9 == "a3bs9" and !in_array($text,$adminss)){
+file_put_contents("data/a3bs9.txt","none");
 file_put_contents("ad.json",$text."\n",FILE_APPEND);} 
 
-if($text != "/start" and $k088 == "k088" and !in_array($text,$adminss)){
-file_put_contents("data/k088.txt","none");
+if($text != "/start" and $a3bs9 == "a3bs9" and !in_array($text,$adminss)){
+file_put_contents("data/a3bs9.txt","none");
 bot('sendmessage',[
 'chat_id'=>$chat_id,
-'text'=>"تم رفع العضو", 
+'text'=>"تم رفع العضو ✅", 
 ]);
 bot('sendmessage',[
 'chat_id'=>$text,
-'text'=>"تم رفعك ادمن في البوت", 
+'text'=>"تم رفعك مشرف في البوت 👮‍♂️", 
 ]);
 }
-if($text !="/start" and $k088 == "k088" and in_array($text,$adminss)){
-file_put_contents("data/k088.txt","none");
+if($text !="/start" and $a3bs9 == "a3bs9" and in_array($text,$adminss)){
+file_put_contents("data/a3bs9.txt","none");
 bot('sendmessage',[
 'chat_id'=>$chat_id,
-'text'=>"العضو ادمن بالفعل", 
+'text'=>"العضو مشرف بالفعل👮‍♂️", 
 ]);
 }
 if($data =="addmin"){
 bot('EditMessageText',[
 'chat_id'=>$chat_id2,
 'message_id'=>$message_id,
-'text'=>"اخر خمس ادمنيه :
+'text'=>"اخر خمس مشرفيه 👥👮‍♂️:
  1 - ".$adminss[count($adminss)-2]."
  2 - ️".$adminss[count($adminss)-3]."
  3 - ️".$adminss[count($adminss)-4]."
@@ -325,12 +277,13 @@ bot('EditMessageText',[
 'chat_id'=>$chat_id2,
 'message_id'=>$message_id,
 'text'=>"
-هل انت متاكد من الحذف
-",'parse_mode'=>"MarkDown",
+هل انت متاكد من الحذف ❓
+",
+'parse_mode'=>"MarkDown",
 'reply_markup'=>json_encode([ 
 'inline_keyboard'=>[
-[['text'=>'لا' ,'callback_data'=>"bak"]],
-[['text'=>'نعم' ,'callback_data'=>"yesaarsslan"]],
+[['text'=>'لا ❌' ,'callback_data'=>"bak"]],
+[['text'=>'نعم ✅' ,'callback_data'=>"yesaarsslan"]],
 ]])
 ]);
 }
@@ -339,8 +292,9 @@ bot('EditMessageText',[
 'chat_id'=>$chat_id2,
 'message_id'=>$message_id,
 'text'=>"
-تم حذف الادمنيه
-",'parse_mode'=>"MarkDown",
+تم حذف المشرفيه👥✅
+",
+'parse_mode'=>"MarkDown",
 'reply_markup'=>json_encode([ 
 'inline_keyboard'=>[
 [['text'=>'الصفحه الرئيسيه' ,'callback_data'=>"bak"]],
@@ -383,7 +337,7 @@ file_put_contents("bot.txt","متوقف");
 if($text =="/start" and $bot =="متوقف" and $chat_id != "$admin"){
  bot("sendmessage",[
  "chat_id"=>$chat_id,
- "text"=>"عذرا البوت يخضع للتحديث الان",]);
+ "text"=>"تم اغلاق البوت لي اصلاح بعض المشاكل",]);
 }
 
 if($data =="userd"){
@@ -391,8 +345,9 @@ bot('EditMessageText',[
 'chat_id'=>$chat_id2,
 'message_id'=>$message_id,
 'text'=>"
- اهلا بك عزيزي الادمن
- عدد الاعضاء : ( $all )",
+ اهلا بك عزيزي المشرف
+ عدد الاعضاء : ( $all )
+",
 'parse_mode'=>"MarkDown",
 'reply_markup'=>json_encode([ 
 'inline_keyboard'=>[
@@ -408,7 +363,8 @@ bot('answerCallbackQuery',[
 'message_id'=>$message_id,
 'text'=>"
  مرحبا عزيزي
- تم تفعيل الاشعارات في البوت
+ تم تفعيل الاشعارات في البوت🔔
+➖➖➖➖➖➖➖➖
 ",
 'show_alert'=>true
 ]);
@@ -421,6 +377,7 @@ bot('answerCallbackQuery',[
 'text'=>"
  مرحبا عزيزي
 ⚠ تم تعطيل الاشعارات في البوت
+➖➖➖➖➖➖➖➖
 ",
 'show_alert'=>true
 ]);
@@ -441,13 +398,14 @@ bot('EditMessageText',[
 'chat_id'=>$chat_id2,
 'message_id'=>$message_id,
 'text'=>"
- حسنا عزيزي
- قم باختيار ما يناسبك",
+حسنا عزيزي
+قم باختيار ما يناسبك
+",
 'reply_markup'=>json_encode([ 
 'inline_keyboard'=>[
-[['text'=>"اذاعه صورة ",'callback_data'=>"photoi"]],
-[['text' => "اذاعه رسالة ", 'callback_data' => "msg"],['text' => "اذاعه توجيه ", 'callback_data' => "forward"]],
-[['text' => "اذاعه ميديا ", 'callback_data' => "midea"],['text' => "اذاعه انلاين ", 'callback_data' => "inline"]],
+[['text'=>"اذاعه صورة 🖼",'callback_data'=>"photoi"]],
+[['text' => "اذاعه رسالة ✉", 'callback_data' => "msg"],['text' => "اذاعه توجيه ", 'callback_data' => "forward"]],
+[['text' => "اذاعه ميديا ✅", 'callback_data' => "midea"],['text' => "اذاعه انلاين ", 'callback_data' => "inline"]],
 [['text'=>"رجوع ",'callback_data'=>"bak"]],
 ]])
 ]);
@@ -459,7 +417,8 @@ bot('EditMessageText',[
 'message_id'=>$message_id,
 'text'=>"
  حسنا عزيزي
- قم بأرسال رسالتك لتحويلها لجميع المشتركين",
+ قم بأرسال رسالتك لتحويلها لجميع المشتركين
+",
 'reply_markup'=>json_encode([ 
 'inline_keyboard'=>[
 [['text'=>"الغاء",'callback_data'=>"bak"]],
@@ -477,9 +436,10 @@ bot('sendmessage',[
 bot('sendmessage',[
 'chat_id'=>$chat_id,
 'text'=>"
- حسنا عزيزي
- تم عمل اذاعه بنجاح
- الى ( $all ) مشترك",
+حسنا عزيزي
+تم عمل اذاعه بنجاح 📢
+الى ( $all ) مشترك
+",
 'reply_markup'=>json_encode([ 
 'inline_keyboard'=>[
 [['text'=>"رجوع ",'callback_data'=>"bak"]],
@@ -493,8 +453,9 @@ bot('EditMessageText',[
 'chat_id'=>$chat_id2,
 'message_id'=>$message_id,
 'text'=>"
- حسنا عزيزي
- قم بأرسال رسالتك لتحويلها لجميع المشتركين على شكل توجيه",
+حسنا عزيزي
+قم بأرسال رسالتك لتحويلها لجميع المشتركين على شكل توجيه
+",
 'reply_markup'=>json_encode([ 
 'inline_keyboard'=>[
 [['text'=>"الغاء ",'callback_data'=>"bak"]],
@@ -513,9 +474,10 @@ bot('ForwardMessage',[
 bot('sendmessage',[
 'chat_id'=>$chat_id,
 'text'=>"
- حسنا عزيزي
- تم عمل اذاعه توجيه بنجاح
- الى ( $all ) مشترك",
+حسنا عزيزي
+تم عمل اذاعه توجيه بنجاح 📢
+الى ( $all ) مشترك
+",
 'reply_markup'=>json_encode([ 
 'inline_keyboard'=>[
 [['text'=>"رجوع",'callback_data'=>"bak"]],
@@ -530,8 +492,9 @@ bot('EditMessageText',[
 'message_id'=>$message_id,
 'text'=>"
  حسنا عزيزي
- يمكنك استخدام جميع انوع الميديا ماعدى الصوره
- (ملصق - فيديو - بصمه - ملف صوتي - ملف - متحركه - جهة اتصال )",
+يمكنك استخدام جميع انوع الميديا ماعدى الصوره
+(ملصق - فيديو - بصمه - ملف صوتي - ملف - متحركه - جهة اتصال )
+",
 'reply_markup'=>json_encode([ 
 'inline_keyboard'=>[
 [['text'=>"الغاء",'callback_data'=>"bak"]],
@@ -558,8 +521,9 @@ bot('EditMessageText',[
 'chat_id'=>$chat_id2,
 'message_id'=>$message_id,
 'text'=>"
- حسنا عزيزي
- قم بأرسال الصورة لنشرها لجميع المشتركين",
+حسنا عزيزي
+قم بأرسال الصورة لنشرها لجميع المشتركين
+",
 'reply_markup'=>json_encode([ 
 'inline_keyboard'=>[
 [['text'=>"الغاء ",'callback_data'=>"bak"]],
@@ -577,10 +541,11 @@ bot('sendphoto',[
 }
 bot('sendmessage',[
 'chat_id'=>$chat_id,
-'text'=>"
- حسنا عزيزي
- تم نشر الصورة بنجاح
- الى ( $all ) مشترك",
+'text'=>"*
+حسنا عزيزي
+تم نشر الصورة بنجاح 📢
+الى ( $all ) مشترك
+*",
 'reply_markup'=>json_encode([ 
 'inline_keyboard'=>[
 [['text'=>"رجوع ",'callback_data'=>"bak"]],
@@ -647,7 +612,7 @@ bot('EditMessageText',[
 'message_id'=>$message_id,
 'text'=>"
  حسنا عزيزي
- قم برفع البوت ادمن في القناة
+ قم برفع البوت مشرف في القناة
  ثم ارسل توجيه من القناة الى هنا",
 'reply_markup'=>json_encode([ 
 'inline_keyboard'=>[
@@ -697,7 +662,7 @@ bot('editmessagetext',[
 'message_id'=>$message_id,
 'text'=>"
  حسنا عزيزي
- قم برفع البوت ادمن في القناة
+ قم برفع البوت مشرف في القناة
  ثم ارسل يوزر القناة لتفعيل الاشتراك",
 'reply_markup'=>json_encode([ 
 'inline_keyboard'=>[
@@ -840,14 +805,21 @@ if($data =="pannel"){
 bot('EditMessageText',[
 'chat_id'=>$chat_id2,
 'message_id'=>$message_id,
-'text'=>"*• اهلا بك في قسم - الاحصائيات . 📊
-ٴ𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳
-• عدد اعضاء بوتك : ⦗ $all ⦘
-• المتفاعلين اليوم  : ⦗ $todayuser ⦘
-• عدد الرسائل المرسله : ⦗ ".$abbas09['addmessage']." ⦘
-• عدد الرسائل المستلمه : ⦗ ".$abbas09['messagee']." ⦘
-• مجموع الرسائل : ⦗ $xll ⦘
-ٴ𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳*",'parse_mode'=>"MarkDown",
+'text'=>"*اهلا بك في قسم - الاحصائيات . 📊
+. — — — — — — — — — — .
+ عدد اعضاء بوتك : $all
+ المتفاعلين اليوم  : $todayuser
+ عدد الرسائل المرسله : ".$abbas09['addmessage']."
+ عدد الرسائل المستلمه : ".$abbas09['messagee']."
+ مجموع الرسائل : $xll
+. — — — — — — — — — — .
+ اخر خمس مشتركين :
+▫️ 1- ".$users[count($users)-2]."
+▫️ 2- ️".$users[count($users)-3]."
+▫️ 3- ️".$users[count($users)-4]."
+▫️ 4- ️".$users[count($users)-5]."
+▫️ 5- ️".$users[count($users)-6]."
+. — — — — — — — — — — .*",'parse_mode'=>"MarkDown",
 'reply_markup'=>json_encode([ 
 'inline_keyboard'=>[
 [['text'=>'الصفحه الرئيسيه' ,'callback_data'=>"bak"]],
@@ -885,202 +857,125 @@ unlink("up.php");
 bot('editmessagetext',[
 'chat_id'=>$chat_id2,
 'message_id'=>$message_id,
-'text'=>"*- اهلا بك عزيزي المطور 
-- اليك قائمه الاوامر الخاصه بك*",
+'text'=>"*-•
+~ اهلا بك في لوحه الأدمن الخاصه بالبوت 🤖
+
+~ يمكنك التحكم في جميع اوامر البوت من هنا 
+------------------------------------
+*",
 'parse_mode'=>"Markdown",
 "reply_markup"=>json_encode([
 "inline_keyboard"=>[
-[["text"=>" قفل البوت ","callback_data"=>"abcd"],["text"=>" فتح البوت ","callback_data"=>"abcde"]],
-[["text"=>" اعضاء البوت ","callback_data"=>"userd"]],
-[["text"=>" تفعيل التنبيه ","callback_data"=>"ont"],["text"=>" تعطيل التنبيه ","callback_data"=>"oft"]],
-[["text"=>" قسم الاذاعةه ","callback_data"=>"for"]],
-[['text' => " قائمه الاشتراك ", 'callback_data' => "channel"],['text' => " الاشتراك ($skor) ", "callback_data" => "off"]],
-[['text' => " نسخة احتياطيه ", 'callback_data' => "nnn"],['text' => " رفع نسخه ", 'callback_data' => "up"]],
-[['text' => " الاحصائيات ", 'callback_data' => "pannel"],['text' => " قسم الادمن ", 'callback_data' => "lIllabbas"]],
+[["text"=>"- قفل البوت ❌.","callback_data"=>"abcd"],["text"=>"- فتح البوت ✅.","callback_data"=>"abcde"]],
+[["text"=>"- اعضاء البوت 👥.","callback_data"=>"userd"]],
+[["text"=>"- تفعيل التنبيه 🔔.","callback_data"=>"ont"],["text"=>"- تعطيل التنبيه 🔕.","callback_data"=>"oft"]],
+[["text"=>"- قسم الاذاعةه 📢.","callback_data"=>"for"]],
+[['text' => "- قائمةه الاشتراك 🗣.", 'callback_data' => "channel"],['text' => "- الاشتراك ($skor) .", "callback_data" => "off"]],
+[['text' => "- الاحصائيات 📊.", 'callback_data' => "pannel"],['text' => "- قسم المشرفين 👮‍♂️.", 'callback_data' => "lIllabbas"]],
 ]])
 ]);   
 }
-$update = json_decode(file_get_contents("php://input"));
-if(isset($update->message)){
-    $from_id    = $update->message->from->id;
-    $chat_id    = $update->message->chat->id;
-    $tc         = $update->message->chat->type;
-    $text       = $update->message->text;
-    $first_name = $update->message->from->first_name;
-    $message_id = $update->message->message_id;
-}elseif(isset($update->callback_query)){
-    $chat_id    = $update->callback_query->message->chat->id;
-    $data       = $update->callback_query->data;
-    $query_id   = $update->callback_query->id;
-    $message_id = $update->callback_query->message->message_id;
-    $in_text    = $update->callback_query->message->text;
-    $from_id    = $update->callback_query->from->id;
+$content = file_get_contents("php://input");
+$update = json_decode($content, true);
+
+if (!$update) {
+    exit;
 }
-    $user = $message->from->username;
-    $name = $message->from->first_name;
-    $from_id = $message->from->id;
-//𓏳𓏳𓏳⦗ رساله ستارت ⦘𓏳𓏳𓏳
-   if($text == "/start"){
-   bot('sendMessage', [
+$message = $update['message'] ?? "";
+$message_id = $message['message_id'] ?? "";
+$chat_id = $message['chat']['id'] ?? "";
+$command = $message['text'] ?? "";
+
+//𓏳𓏳< رساله /start >𓏳𓏳
+
+if ($command == '/start') {
+    bot('sendMessage', [
         'chat_id' => $chat_id,
-        'text' => "*- مرحبا بك عزيزي ♡ . 
-- في بوت التحميل من التيك توك والانستكرام .
-- فقط قم بأرسال رابط المقطع
-- او اضغط على ⦗ شرح البوت ⦘*
-",
+        'text' => "*⌔︙مرحباً . ⦗* [$name](tg://user?id=$from_id) *⦘ ،
+
+⌔︙يمكنك من خلالي تحميل الوسائط وبدون حقوق من الانستگرام 🩵.*",
         'parse_mode' => "MARKDOWN",
         'disable_web_page_preview' => "true",
-        'reply_markup'=>json_encode([
-'inline_keyboard'=>[
-[['text'=>"⦗ مطور البوت ⦘",'url'=>"https://t.me/T_0_M0"]], 
-[['text'=>"⦗ قناة البوت ⦘",'url'=>"https://t.me/izeoe"]], 
-[['text'=>"⦗ شرح البوت ⦘",'callback_data'=>"sarhbot"]], 
-[['text'=>"⦗ تغيير اللغه | changa language ⦘",'callback_data'=>"long9"]], 
-
-] 
-])
-        
+        'reply_markup' => json_encode([
+            'inline_keyboard' => [
+                [['text' => "‹ مطور البوت ›", 'url'=>"t.me/T_0_M0"],['text' => "‹ قناة البوت ›", 'url'=>"t.me/izeoe"]]
+            ]
+        ])
     ]);
-   } 
-
-if($data == "englesh"){
-bot('EditMessageText',[
-    'chat_id'=>$chat_id,
-    'message_id'=>$message_id,
-'text'=>"- Welcome 
-- In the download bot from Tik Tok and Instagram without a watermark 
-- Just send the link",
- 'reply_markup'=>json_encode([ 
-      'inline_keyboard'=>[
-[['text'=>"⦗ Bot developer ⦘",'url'=>"https://t.me/T_0_M0"]], 
-[['text'=>"⦗ Bot channel  ⦘",'url'=>"https://t.me/izeoe"]], 
-[['text'=>"⦗ How to download ⦘",'callback_data'=>"sarhbot"]], 
-[['text'=>"⦗ تغيير اللغه | language ⦘",'callback_data'=>"long9"]], 
-
-]])
-]);
-} 
-   
-if($data == "airbcsss"){
-bot('EditMessageText',[
-    'chat_id'=>$chat_id,
-    'message_id'=>$message_id,
-'text'=>"- مرحبا بك عزيزي ♡ . 
-- في بوت التحميل من التيك توك والانستكرام .
-- فقط قم بأرسال رابط المقطع
-- او اضغط على ⦗ شرح البوت ⦘",
- 'reply_markup'=>json_encode([ 
-      'inline_keyboard'=>[
-[['text'=>"⦗ مطور البوت ⦘",'url'=>"https://t.me/T_0_M0"]], 
-[['text'=>"⦗ قناة البوت ⦘",'url'=>"https://t.me/izeoe"]], 
-[['text'=>"⦗ شرح البوت ⦘",'callback_data'=>"sarhbot"]], 
-[['text'=>"⦗ تغيير اللغه | changa language ⦘",'callback_data'=>"long9"]], 
-
-]])
-]);
-} 
-
-if($data == "long9"){
-bot('EditMessageText',[
-'chat_id'=>$chat_id,
-'message_id'=>$message_id,
-'text'=>"*- قم باختيار لغتك 
-
-- Choose your language*",
-'reply_to_message_id'=>$message->message_id,
-'parse_mode'=>"MarkDown",
-'reply_markup'=>json_encode([ 
-'inline_keyboard'=>[
-[['text'=>"⦗ English 🇺🇸 ⦘",'callback_data'=>"englesh"],['text'=>"⦗ عربي 🇮🇶 ⦘",'callback_data'=>"airbcsss"]],
-]])
-]);
 }
-
-if($data == "sarhbot"){
-bot('EditMessageText',[
-    'chat_id'=>$chat_id,
-    'message_id'=>$message_id,
-'text'=>"• للتحميل من الـ ⦗ تيك توك ⦘
-
-- فقط قم بارسال رابط الفيديو 
-- وسيتم ارسال الفيديو + صوت الفيديو بدقه عاليه
-
-• للتحميل من الـ ⦗ الانستكرام ⦘
-
-- فقط قم بارسال رابط الريلز او الصوره
-- وسيتم ارسال المقطع والصوره بدقه عاليه
-𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳
-• Download from  ⦗ Tik Tok  ⦘
-
-- Just send the video link  
-- The video + video audio will be sent in high resolution 
-
-• Download from  ⦗ Instagram ⦘
-
-- Just send the reel link or image 
-- The clip and photo will be sent in high resolution",
- 'reply_markup'=>json_encode([ 
-      'inline_keyboard'=>[
-[['text'=>"⦗ رجوع | Back ⦘",'callback_data'=>"airbcsss"]], 
-
-]])
-]);
-} 
-
-if (preg_match('/^https:\/\/www.instagram.com\/p\/(.+)/', $text, $match2)) {
+//𓏳𓏳< قسم الانستكرام >𓏳𓏳
+if (filter_var($command, FILTER_VALIDATE_URL)) {
+    $link = $command;
 
 
-    $api = file_get_contents('https://abarmizban.com/downloader/test.php?url=https://www.instagram.com/p/' . $match2[1]);
-    $decode = json_decode($api);
+    $loading_message = bot('sendMessage', [
+        'chat_id' => $chat_id,
+        'text' => '← جاري تحميل الفيديو انتضر قليلا ...! '
+    ]);
+
+    $loading_message_id = $loading_message->result->message_id;
+
+    $json_data = ['url' => $link];
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, 'https://insta.savetube.me/downloadPostVideo');
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($json_data));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+    $response = curl_exec($ch);
+    curl_close($ch);
+    $response = json_decode($response, true);
+
+    $sent = false;
+
+    if (isset($response['post_video_url'])) {
+        $video = $response['post_video_url'];
+        bot('sendVideo', [
+            'chat_id' => $chat_id,
+            'video' => $video,
+            'caption' => "← تم تحميل الفيديو بنجاح ♡",
+            'parse_mode' => 'Markdown'
+        ]);
+        $sent = true;
+    }
     
-    if (!empty($decode->video->medias)) {
-        foreach ($decode->video->medias as $media) {
-            if (isset($media->url)) {
-                bot('sendVideo', [
-                    'chat_id' => $chat_id,
-                    'video' => $media->url,
-                    'caption' => "𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳
-• Tele : @izeoe | @laiecbot ",
-                    'parse_mode' => "markdown",
-                ]);
-            }
+    if (!$sent) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://insta.savetube.me/downloadPostImage');
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($json_data));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        $response = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response, true);
+
+        if (isset($response['post_image_url'])) {
+            $image = $response['post_image_url'];
+            bot('sendPhoto', [
+                'chat_id' => $chat_id,
+                'photo' => $image,
+                'caption' => "← تم تحميل الصوره بنجاح ♡",
+                'parse_mode' => 'Markdown'
+            ]);
+            $sent = true;
         }
-    } else {
+    }
+
+    bot('deleteMessage', [
+        'chat_id' => $chat_id,
+        'message_id' => $loading_message_id
+    ]);
+
+    if (!$sent) {
         bot('sendMessage', [
             'chat_id' => $chat_id,
-            'text' => 'حدث خطأ اثناء التحميل',
+            'text' => "*← هناك خطأ ، من فضلك تأكد من الرابط الذي قمت بارساله ♡ .*",
+            'parse_mode' => "Markdown"
         ]);
     }
 }
-
-if (preg_match('/^https:\/\/www.instagram.com\/reel\/(.+)/', $text, $match2)) {
-
-
-    $api = file_get_contents('https://abarmizban.com/downloader/test.php?url=https://www.instagram.com/reel/' . $match2[1]);
-    $decode = json_decode($api);
-    
-    
-    
-    if (!empty($decode->video->medias)) {
-        foreach ($decode->video->medias as $media) {
-            if (isset($media->url)) {
-                bot('sendVideo', [
-                    'chat_id' => $chat_id,
-                    'video' => $media->url,
-                    'caption' => "𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳𓏳
-• Tele : @izeoe | @laiecbot ",
-                    'parse_mode' => "markdown",
-                ]);
-            }
-        }
-    } else {
-        bot('sendMessage', [
-            'chat_id' => $chat_id,
-            'text' => 'حدث خطأ اثناء التحميل ',
-        ]);
-    }
-}
-
+//𓏳𓏳< قسم التيك توك >𓏳𓏳
 
 $url = $text;
 
@@ -1124,7 +1019,7 @@ $author_avatar = $tiktok->author->avatar;
 
 
 		
-		if(strstr($text,"vm.tiktok.com")) {
+		if(strstr($text,"vt.tiktok.com")) {
 			if($status == "success") {
 			bot('sendChatAction', [
 'chat_id'=>$chat_id,
@@ -1133,38 +1028,14 @@ $author_avatar = $tiktok->author->avatar;
 	bot('sendvideo',[ 
 'chat_id'=>$chat_id,
 'video'=>new CURLFile($play),
-'caption' =>"*- تم تحميل الفيديو بنجاح ♡. 
-
-- معلومات الحساب ♪ . 
-
-- اسم الحساب : 
-❲ $author_nickname ❳
-- يوزر الحساب : 
-❲ @$author_unique_id ❳
-- ايدي الحساب : 
-❲ $author_id ❳
-
-- عنوان الفيديو ♬ . 
-
-- $title*",
-'parse_mode' => "MARKDOWN",
-'reply_markup'=>json_encode([
-'inline_keyboard'=>[
-
-[['text'=>"مشاهدات الفيديو : ❲ $play_count ❳",'callback_data'=>"1"]], 
-[['text'=>"اكسبلور الفيديو : ❲ $share_count ❳",'callback_data'=>"1"]], 
-[['text'=>"لايكات الفيديو : ❲ $digg_count ❳",'callback_data'=>"1"]], 
-[['text'=>"تعليقات الفيديو : ❲ $comment_count ❳",'callback_data'=>"1"]], 
-[['text'=>"❲ مطور البوت ❳",'url'=>"https://t.me/T_0_M0"]],
-[['text'=>"❲ قناة البوت ❳",'url'=>"https://t.me/izeoe"]], 
-] 
-])
-     ]);
+'caption' =>"*- @laiecbot .*",
+'parse_mode' => "markdown",
+                ]);
     
      bot('sendaudio',[ 
 'chat_id'=>$chat_id,
 'audio'=>new CURLFile($music) ,
-'caption' =>"*❲ صوت الفيديو ❳*", 
+'caption' =>"*- @laiecbot .*", 
 'parse_mode' => "MARKDOWN",
         'disable_web_page_preview' => "true",
      ]); 
@@ -1180,7 +1051,4 @@ $author_avatar = $tiktok->author->avatar;
    } 
     }
     
-    
-
-
 ?>
